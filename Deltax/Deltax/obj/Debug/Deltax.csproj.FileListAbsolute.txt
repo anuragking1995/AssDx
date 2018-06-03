@@ -1,0 +1,11 @@
+F:\Tasks\Deltax\Deltax\Deltax\bin\Debug\Deltax.dll.config
+F:\Tasks\Deltax\Deltax\Deltax\bin\Debug\Deltax.dll
+F:\Tasks\Deltax\Deltax\Deltax\bin\Debug\Deltax.pdb
+F:\Tasks\Deltax\Deltax\Deltax\bin\Debug\EntityFramework.dll
+F:\Tasks\Deltax\Deltax\Deltax\bin\Debug\EntityFramework.SqlServer.dll
+F:\Tasks\Deltax\Deltax\Deltax\bin\Debug\EntityFramework.xml
+F:\Tasks\Deltax\Deltax\Deltax\bin\Debug\EntityFramework.SqlServer.xml
+F:\Tasks\Deltax\Deltax\Deltax\obj\Debug\Deltax.csproj.CoreCompileInputs.cache
+F:\Tasks\Deltax\Deltax\Deltax\obj\Debug\Deltax.dll
+F:\Tasks\Deltax\Deltax\Deltax\obj\Debug\Deltax.pdb
+F:\Tasks\Deltax\Deltax\Deltax\obj\Debug\Deltax.csprojResolveAssemblyReference.cache

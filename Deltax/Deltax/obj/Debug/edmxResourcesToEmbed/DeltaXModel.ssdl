@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DeltaXModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Actor">
+    <Key>
+      <PropertyRef Name="ActorID" />
+    </Key>
+    <Property Name="ActorID" Type="char" MaxLength="5" Nullable="false" />
+    <Property Name="ActorName" Type="varchar" MaxLength="100" />
+    <Property Name="Sex" Type="char" MaxLength="1" />
+    <Property Name="DOB" Type="date" />
+    <Property Name="Bio" Type="text" />
+  </EntityType>
+  <EntityType Name="ActorMovie">
+    <Key>
+      <PropertyRef Name="PKActorMovie" />
+    </Key>
+    <Property Name="PKActorMovie" Type="int" Nullable="false" />
+    <Property Name="ActorID" Type="char" MaxLength="5" />
+    <Property Name="MovieID" Type="char" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="Movie">
+    <Key>
+      <PropertyRef Name="MovieId" />
+    </Key>
+    <Property Name="MovieId" Type="char" MaxLength="5" Nullable="false" />
+    <Property Name="MovieName" Type="varchar" MaxLength="100" />
+    <Property Name="YearOfRelease" Type="smallint" />
+    <Property Name="Plot" Type="text" />
+    <Property Name="Poster" Type="varbinary(max)" />
+    <Property Name="ProducerID" Type="char" MaxLength="5" />
+  </EntityType>
+  <EntityType Name="Producer">
+    <Key>
+      <PropertyRef Name="ProducerID" />
+    </Key>
+    <Property Name="ProducerID" Type="char" MaxLength="5" Nullable="false" />
+    <Property Name="ProducerName" Type="varchar" MaxLength="100" />
+    <Property Name="Sex" Type="char" MaxLength="1" />
+    <Property Name="DOB" Type="date" />
+    <Property Name="Bio" Type="text" />
+  </EntityType>
+  <Association Name="fk_ActorMovie_ActorID">
+    <End Role="Actor" Type="Self.Actor" Multiplicity="0..1" />
+    <End Role="ActorMovie" Type="Self.ActorMovie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Actor">
+        <PropertyRef Name="ActorID" />
+      </Principal>
+      <Dependent Role="ActorMovie">
+        <PropertyRef Name="ActorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ActorMovie_MovieID">
+    <End Role="Movie" Type="Self.Movie" Multiplicity="0..1" />
+    <End Role="ActorMovie" Type="Self.ActorMovie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movie">
+        <PropertyRef Name="MovieId" />
+      </Principal>
+      <Dependent Role="ActorMovie">
+        <PropertyRef Name="MovieID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Movie_producerID">
+    <End Role="Producer" Type="Self.Producer" Multiplicity="0..1" />
+    <End Role="Movie" Type="Self.Movie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producer">
+        <PropertyRef Name="ProducerID" />
+      </Principal>
+      <Dependent Role="Movie">
+        <PropertyRef Name="ProducerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="usp_ActorID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="actorID" Type="char" Mode="InOut" />
+  </Function>
+  <Function Name="usp_ActorMovie" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID" Type="int" Mode="InOut" />
+  </Function>
+  <Function Name="usp_MovieID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="movieID" Type="char" Mode="InOut" />
+  </Function>
+  <Function Name="usp_ProducerID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="producerID" Type="char" Mode="InOut" />
+  </Function>
+  <EntityContainer Name="DeltaXModelStoreContainer">
+    <EntitySet Name="Actor" EntityType="Self.Actor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ActorMovie" EntityType="Self.ActorMovie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Movie" EntityType="Self.Movie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Producer" EntityType="Self.Producer" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="fk_ActorMovie_ActorID" Association="Self.fk_ActorMovie_ActorID">
+      <End Role="Actor" EntitySet="Actor" />
+      <End Role="ActorMovie" EntitySet="ActorMovie" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ActorMovie_MovieID" Association="Self.fk_ActorMovie_MovieID">
+      <End Role="Movie" EntitySet="Movie" />
+      <End Role="ActorMovie" EntitySet="ActorMovie" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Movie_producerID" Association="Self.fk_Movie_producerID">
+      <End Role="Producer" EntitySet="Producer" />
+      <End Role="Movie" EntitySet="Movie" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

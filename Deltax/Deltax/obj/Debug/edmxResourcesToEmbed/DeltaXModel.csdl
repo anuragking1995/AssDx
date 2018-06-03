@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DeltaXModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Actor">
+    <Key>
+      <PropertyRef Name="ActorID" />
+    </Key>
+    <Property Name="ActorID" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="ActorName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Sex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Precision="0" />
+    <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ActorMovies" Relationship="Self.fk_ActorMovie_ActorID" FromRole="Actor" ToRole="ActorMovie" />
+  </EntityType>
+  <EntityType Name="ActorMovie">
+    <Key>
+      <PropertyRef Name="PKActorMovie" />
+    </Key>
+    <Property Name="PKActorMovie" Type="Int32" Nullable="false" />
+    <Property Name="ActorID" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <Property Name="MovieID" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="Actor" Relationship="Self.fk_ActorMovie_ActorID" FromRole="ActorMovie" ToRole="Actor" />
+    <NavigationProperty Name="Movie" Relationship="Self.fk_ActorMovie_MovieID" FromRole="ActorMovie" ToRole="Movie" />
+  </EntityType>
+  <EntityType Name="Movie">
+    <Key>
+      <PropertyRef Name="MovieId" />
+    </Key>
+    <Property Name="MovieId" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="MovieName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="YearOfRelease" Type="Int16" />
+    <Property Name="Plot" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Poster" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="ProducerID" Type="String" MaxLength="5" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="ActorMovies" Relationship="Self.fk_ActorMovie_MovieID" FromRole="Movie" ToRole="ActorMovie" />
+    <NavigationProperty Name="Producer" Relationship="Self.fk_Movie_producerID" FromRole="Movie" ToRole="Producer" />
+  </EntityType>
+  <EntityType Name="Producer">
+    <Key>
+      <PropertyRef Name="ProducerID" />
+    </Key>
+    <Property Name="ProducerID" Type="String" MaxLength="5" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="ProducerName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Sex" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="DOB" Type="DateTime" Precision="0" />
+    <Property Name="Bio" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Movies" Relationship="Self.fk_Movie_producerID" FromRole="Producer" ToRole="Movie" />
+  </EntityType>
+  <Association Name="fk_ActorMovie_ActorID">
+    <End Role="Actor" Type="Self.Actor" Multiplicity="0..1" />
+    <End Role="ActorMovie" Type="Self.ActorMovie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Actor">
+        <PropertyRef Name="ActorID" />
+      </Principal>
+      <Dependent Role="ActorMovie">
+        <PropertyRef Name="ActorID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_ActorMovie_MovieID">
+    <End Role="Movie" Type="Self.Movie" Multiplicity="0..1" />
+    <End Role="ActorMovie" Type="Self.ActorMovie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Movie">
+        <PropertyRef Name="MovieId" />
+      </Principal>
+      <Dependent Role="ActorMovie">
+        <PropertyRef Name="MovieID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_Movie_producerID">
+    <End Role="Producer" Type="Self.Producer" Multiplicity="0..1" />
+    <End Role="Movie" Type="Self.Movie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producer">
+        <PropertyRef Name="ProducerID" />
+      </Principal>
+      <Dependent Role="Movie">
+        <PropertyRef Name="ProducerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DeltaXDBContext" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Actors" EntityType="Self.Actor" />
+    <EntitySet Name="ActorMovies" EntityType="Self.ActorMovie" />
+    <EntitySet Name="Movies" EntityType="Self.Movie" />
+    <EntitySet Name="Producers" EntityType="Self.Producer" />
+    <AssociationSet Name="fk_ActorMovie_ActorID" Association="Self.fk_ActorMovie_ActorID">
+      <End Role="Actor" EntitySet="Actors" />
+      <End Role="ActorMovie" EntitySet="ActorMovies" />
+    </AssociationSet>
+    <AssociationSet Name="fk_ActorMovie_MovieID" Association="Self.fk_ActorMovie_MovieID">
+      <End Role="Movie" EntitySet="Movies" />
+      <End Role="ActorMovie" EntitySet="ActorMovies" />
+    </AssociationSet>
+    <AssociationSet Name="fk_Movie_producerID" Association="Self.fk_Movie_producerID">
+      <End Role="Producer" EntitySet="Producers" />
+      <End Role="Movie" EntitySet="Movies" />
+    </AssociationSet>
+    <FunctionImport Name="usp_ActorID">
+      <Parameter Name="actorID" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_ActorMovie">
+      <Parameter Name="ID" Mode="InOut" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="usp_MovieID">
+      <Parameter Name="movieID" Mode="InOut" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="usp_ProducerID">
+      <Parameter Name="producerID" Mode="InOut" Type="String" />
+    </FunctionImport>
+  </EntityContainer>
+</Schema>

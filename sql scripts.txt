@@ -1,0 +1,63 @@
+
+
+Create table Actor(
+	ActorID char(5) constraint pk_Actor_ActorID primary key,
+	ActorName varchar(100),
+	Sex char(1) constraint ch_Actor_Sex check  (Sex in ('M','F')),
+	DOB date,
+	Bio text
+)
+
+Create table Producer(
+	ProducerID char(5) constraint pk_Producer_ProducerID primary key,
+	ProducerName varchar(100),
+	Sex char(1), constraint chk_Actor_Sex check  (Sex in ('M','F')),
+	DOB date,
+	Bio text
+)
+
+
+Create table Movie(
+	MovieId char(5) constraint pk_Movie_MovieID primary key,
+	MovieName varchar(100),
+	YearOfRelease smallint,
+	Plot text,
+	Poster varbinary(max),
+	ProducerID char(5) constraint fk_Movie_producerID references Producer(ProducerID)
+)
+
+
+Create table ActorMovie(
+	PKActorMovie int constraint pk_ActorMovie_PKActorMovie primary key,
+	ActorID char(5) constraint fk_ActorMovie_ActorID references Actor(ActorID),
+	MovieID char(5) constraint fk_ActorMovie_MovieID references Movie(MovieID),
+)
+
+Insert into Actor values(
+'A101','Shahrukh Khan','M','11-02-1965','Shah Rukh Khan, also known as SRK, is an Indian film actor, producer and television personality. Referred to in the media as the Badshah of Bollywood,King of Bollywood ,King Khan')
+
+Insert into Actor values(
+'A102','Hrithik Roshan','M','01-10-1965','Hrithik Roshan is an Indian actor who appears in Bollywood films. The son of the filmmaker Rakesh Roshan, he has portrayed a variety of characters and is known for his dancing ability. One of the highest-paid actors in India, he has won many awards, including six Filmfares, four for Best Actor and one each for Best Debut')
+
+
+Insert into producer values
+('P101','Karan Johar','M','05-25-1972','Karan Johar, often informally referred to as KJo, is an Indian film director, producer, screenwriter, costume designer, actor and television personality who is primarily known for his work in Hindi films')
+
+Insert into producer values
+('P102','Sanjay Leela Bhansali','M','02-24-1963','Sanjay Leela Bhansali is an Indian film director, producer, screenwriter, and music director. One of the most critically acclaimed filmmakers in Indian cinema, Bhansali is the recipient of several ')
+
+
+
+Insert into Movie values
+('M101','My Name Is khan',2010,'Rizvan Khan embarks on a journey to meet the president of the United States of America and attempts to change people s perception about his religion.',Null,'P101'
+)
+
+
+
+
+Insert into Movie values
+('M102','Bajirao Mastani',2015,'The heroic Peshwa Bajirao, married to Kashibai, falls in love with Mastani, a warrior princess in distress. They struggle to make their love triumph amid opposition from his conservative family.',Null,'P102'
+)
+
+
+insert into ActorMovie values(1,'A101','M101')

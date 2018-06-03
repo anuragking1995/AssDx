@@ -1,0 +1,40 @@
+
+create sequence sq_ActorMovie start with 1000;
+create sequence sq_Actor start with 1000;
+create sequence sq_Producer start with 1000;
+create sequence sq_Movie start with 1000;
+
+create proc usp_ActorID (@actorID char(5) out)
+as
+begin
+ set @actorID =  'A'+ convert(char(4),(next value for sq_Actor))
+ return 1
+ end
+
+
+create proc usp_ProducerID(@producerID char(5) out)
+as
+begin
+ set @producerID =  'P'+ convert(char(4),(next value for sq_Producer))
+ return 1
+ end
+
+
+create proc usp_ActorMovie (@ID int out)
+as
+begin
+ set @ID =  next value for sq_ActorMovie
+ return 1
+ end
+
+
+
+create proc usp_MovieID(@movieID char(5) out)
+as
+begin
+ set @movieID =  'M'+ convert(char(4),(next value for sq_Movie))
+ return 1
+ end
+
+
+

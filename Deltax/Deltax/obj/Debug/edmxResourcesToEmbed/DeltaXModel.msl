@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DeltaXModelStoreContainer" CdmEntityContainer="DeltaXDBContext">
+    <EntitySetMapping Name="Actors">
+      <EntityTypeMapping TypeName="DeltaXModel.Actor">
+        <MappingFragment StoreEntitySet="Actor">
+          <ScalarProperty Name="ActorID" ColumnName="ActorID" />
+          <ScalarProperty Name="ActorName" ColumnName="ActorName" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Bio" ColumnName="Bio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ActorMovies">
+      <EntityTypeMapping TypeName="DeltaXModel.ActorMovie">
+        <MappingFragment StoreEntitySet="ActorMovie">
+          <ScalarProperty Name="PKActorMovie" ColumnName="PKActorMovie" />
+          <ScalarProperty Name="ActorID" ColumnName="ActorID" />
+          <ScalarProperty Name="MovieID" ColumnName="MovieID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Movies">
+      <EntityTypeMapping TypeName="DeltaXModel.Movie">
+        <MappingFragment StoreEntitySet="Movie">
+          <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+          <ScalarProperty Name="MovieName" ColumnName="MovieName" />
+          <ScalarProperty Name="YearOfRelease" ColumnName="YearOfRelease" />
+          <ScalarProperty Name="Plot" ColumnName="Plot" />
+          <ScalarProperty Name="Poster" ColumnName="Poster" />
+          <ScalarProperty Name="ProducerID" ColumnName="ProducerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Producers">
+      <EntityTypeMapping TypeName="DeltaXModel.Producer">
+        <MappingFragment StoreEntitySet="Producer">
+          <ScalarProperty Name="ProducerID" ColumnName="ProducerID" />
+          <ScalarProperty Name="ProducerName" ColumnName="ProducerName" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+          <ScalarProperty Name="Bio" ColumnName="Bio" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_ActorID" FunctionName="DeltaXModel.Store.usp_ActorID" />
+    <FunctionImportMapping FunctionImportName="usp_ActorMovie" FunctionName="DeltaXModel.Store.usp_ActorMovie" />
+    <FunctionImportMapping FunctionImportName="usp_MovieID" FunctionName="DeltaXModel.Store.usp_MovieID" />
+    <FunctionImportMapping FunctionImportName="usp_ProducerID" FunctionName="DeltaXModel.Store.usp_ProducerID" />
+  </EntityContainerMapping>
+</Mapping>
